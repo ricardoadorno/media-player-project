@@ -7,12 +7,15 @@ function FeedbackList() {
     return <div>No feedback</div>;
   } else {
     return (
+      // ! Add animaions with framer motion
+
       <div>
         {FeedbackData.map((feedback) => {
           return (
             <FeedbackItem
               feedbackRating={feedback.rating}
               feedbackText={feedback.text}
+              key={feedback.id}
             />
           );
         })}
