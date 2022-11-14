@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import RatingSelect from "./RatingSelect";
+import FeedbackContext from "../context/FeedbackContext";
 
 function FeedbackForm() {
   const [text, setText] = React.useState("");
   const [message, setMessage] = React.useState("");
   const [rating, setRating] = React.useState(10);
+
+  const { addFeedback } = useContext(FeedbackContext);
 
   // ! Make handleTextChange better
   const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,7 +29,9 @@ function FeedbackForm() {
         rating,
       };
 
-      console.log(newFeedback);
+      addFeedback(newFeedback);
+
+      setText("");
     }
   };
 

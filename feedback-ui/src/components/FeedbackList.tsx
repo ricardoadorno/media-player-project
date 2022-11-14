@@ -1,23 +1,25 @@
 import React from "react";
 import FeedbackItem from "./FeedbackItem";
-import FeedbackData from "../data/FeedbackData";
+
+import { useContext } from "react";
+
+import FeedbackContext from "../context/FeedbackContext";
 
 function FeedbackList() {
-  if (!FeedbackData || FeedbackData.length === 0) {
+  // * Take Context
+  const { feedback } = useContext(FeedbackContext);
+
+  console.log(feedback);
+
+  if (!feedback || feedback.length === 0) {
     return <div>No feedback</div>;
   } else {
     return (
       // ! Add animaions with framer motion
 
       <div>
-        {FeedbackData.map((feedback) => {
-          return (
-            <FeedbackItem
-              feedbackRating={feedback.rating}
-              feedbackText={feedback.text}
-              key={feedback.id}
-            />
-          );
+        {feedback.map((item: any) => {
+          return <FeedbackItem item={item} key={item.id} />;
         })}
       </div>
     );

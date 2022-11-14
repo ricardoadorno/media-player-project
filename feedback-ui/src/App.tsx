@@ -6,16 +6,18 @@ import FeedbackData from "./data/FeedbackData";
 import { useState } from "react";
 import FeedbackForm from "./components/FeedbackForm";
 
+import { FeedbackProvider } from "./context/FeedbackContext";
+
 function App() {
   const [feedback, setFeedback] = useState(FeedbackData);
 
-  const addFeedback = (newFeedback: any) => {
-    newFeedback.id = feedback.length + 1;
-    setFeedback([newFeedback, ...feedback]);
-  };
+  // const addFeedback = (newFeedback: any) => {
+  //   newFeedback.id = feedback.length + 1;
+  //   setFeedback([newFeedback, ...feedback]);
+  // };
 
   return (
-    <div>
+    <FeedbackProvider>
       <Header text="Feedback UI" />
       <div className="container">
         <FeedbackForm />
@@ -23,7 +25,7 @@ function App() {
         <FeedbackStats feedback={feedback} />
         <FeedbackList />
       </div>
-    </div>
+    </FeedbackProvider>
   );
 }
 
