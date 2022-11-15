@@ -3,7 +3,7 @@ import { useContext } from "react";
 import FeedbackContext from "../context/FeedbackContext";
 
 function FeedbackItem({ item }: any) {
-  const { deleteFeedback } = useContext(FeedbackContext);
+  const { deleteFeedback, editFeedback } = useContext(FeedbackContext);
 
   return (
     <div className="card">
@@ -11,6 +11,9 @@ function FeedbackItem({ item }: any) {
       <div className="text-display">{item.text}</div>
       <button onClick={() => deleteFeedback(item.id)} className="close">
         <i className="fa fa-times"></i>
+      </button>
+      <button onClick={() => editFeedback(item)} className="edit">
+        <i className="fa fa-edit"></i>
       </button>
     </div>
   );
