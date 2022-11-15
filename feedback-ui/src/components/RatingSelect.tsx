@@ -1,6 +1,7 @@
 import React from "react";
 import { useContext, useEffect } from "react";
 import FeedbackContext from "../context/FeedbackContext";
+import { GlobalContentFeedbackType } from "../context/FeedbackContext";
 
 function RatingSelect({ select }: { select: (rating: number) => void }) {
   const [selected, setSelected] = React.useState(10);
@@ -10,7 +11,9 @@ function RatingSelect({ select }: { select: (rating: number) => void }) {
     select(+e.currentTarget.value);
   };
 
-  const { feedbackEdit } = useContext(FeedbackContext);
+  const { feedbackEdit } = useContext(
+    FeedbackContext
+  ) as GlobalContentFeedbackType;
 
   useEffect(() => {
     if (feedbackEdit.edit) {

@@ -1,17 +1,37 @@
 import { createContext, useState, useEffect } from "react";
 
-interface AppContextInterface {
-  feedback: {
-    id: number;
-    text: string;
-    rating: number;
-  };
+interface Ifeedback {
+  id: number;
+  text: string;
+  rating: number;
 }
 
-const FeedbackContext = createContext();
+type Titem = {
+  id: number;
+  text: string;
+  rating: number;
+};
+
+type TfeedbackEdit = {
+  item: Titem;
+  edit: boolean;
+};
+
+// ! Mudar a confusão de feedbackEdit e editFeedback
+export type GlobalContentFeedbackType = {
+  feedback: Ifeedback[];
+  feedbackEdit: TfeedbackEdit;
+  isLoading: boolean;
+  deleteFeedback: (id: number) => void;
+  addFeedback: (newFeedback: any) => void;
+  editFeedback: (item: {}) => void;
+  updateFeedback: (id: number, updItem: any) => void;
+};
+
+const FeedbackContext = createContext<GlobalContentFeedbackType | null>(null);
 
 export const FeedbackProvider = ({ children }: any) => {
-  const [feedback, setFeedback] = useState([
+  const [feedback, setFeedback] = useState<Ifeedback[]>([
     {
       id: 1,
       text: "This is a test feedback",
@@ -20,7 +40,7 @@ export const FeedbackProvider = ({ children }: any) => {
   ]);
   const [isLoading, setIsLoading] = useState(false);
 
-  // * Fetch feedback from API
+  // * FETCH feedback from API
   // useEffect(() => {
   //   fetchFeedback();
   // }, []);
@@ -60,12 +80,11 @@ export const FeedbackProvider = ({ children }: any) => {
   };
 
   // * EDIT
-  const [feedbackEdit, setFeedbackEdit] = useState({
+  const [feedbackEdit, setFeedbackEdit] = useState<TfeedbackEdit | null>({
     item: {},
     edit: false,
   });
-
-  const editFeedback = (item) => {
+  const editFeedback = (item: any) => {
     setFeedbackEdit({
       item: item,
       edit: true,

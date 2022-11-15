@@ -4,10 +4,13 @@ import FeedbackItem from "./FeedbackItem";
 import { useContext } from "react";
 
 import FeedbackContext from "../context/FeedbackContext";
+import { GlobalContentFeedbackType } from "../context/FeedbackContext";
 
 function FeedbackList() {
   // * Take Context
-  const { feedback, isLoading } = useContext(FeedbackContext);
+  const { feedback, isLoading } = useContext(
+    FeedbackContext
+  ) as GlobalContentFeedbackType;
 
   console.log(feedback);
 

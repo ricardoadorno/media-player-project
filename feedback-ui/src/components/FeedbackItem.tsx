@@ -1,9 +1,12 @@
 import React from "react";
 import { useContext } from "react";
 import FeedbackContext from "../context/FeedbackContext";
+import { GlobalContentFeedbackType } from "../context/FeedbackContext";
 
 function FeedbackItem({ item }: any) {
-  const { deleteFeedback, editFeedback } = useContext(FeedbackContext);
+  const { deleteFeedback, editFeedback } = useContext(
+    FeedbackContext
+  ) as GlobalContentFeedbackType;
 
   return (
     <div className="card">

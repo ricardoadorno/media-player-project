@@ -1,14 +1,16 @@
 import React, { useContext, useEffect } from "react";
 import RatingSelect from "./RatingSelect";
 import FeedbackContext from "../context/FeedbackContext";
+import { GlobalContentFeedbackType } from "../context/FeedbackContext";
 
 function FeedbackForm() {
   const [text, setText] = React.useState("");
   const [message, setMessage] = React.useState("");
   const [rating, setRating] = React.useState(10);
 
-  const { addFeedback, feedbackEdit, updateFeedback } =
-    useContext(FeedbackContext);
+  const { addFeedback, feedbackEdit, updateFeedback } = useContext(
+    FeedbackContext
+  ) as GlobalContentFeedbackType;
 
   useEffect(() => {
     if (feedbackEdit.edit) {
