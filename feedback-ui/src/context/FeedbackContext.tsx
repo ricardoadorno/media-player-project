@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 interface AppContextInterface {
   feedback: {
@@ -18,15 +18,45 @@ export const FeedbackProvider = ({ children }: any) => {
       rating: 5,
     },
   ]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  // * DELETE
-  const deleteFeedback = (id: number) => {
-    setFeedback(feedback.filter((item) => item.id !== id));
-  };
+  // * Fetch feedback from API
+  // useEffect(() => {
+  //   fetchFeedback();
+  // }, []);
+
+  // const fetchFeedback = async () => {
+  //   const res = await fetch("http://localhost:3000/api/feedback");
+  //   const data = await res.json();
+  //   setFeedback(data);
+  //   setIsLoading(false);
+  // };
 
   // * ADD
   const addFeedback = (newFeedback: any) => {
+    // * ADD Fetch
+    // const res = await fetch("http://localhost:3000/api/feedback", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(newFeedback),
+    // });
+
+    // const data = await res.json();
+    // setFeedback([...feedback, data]);
+
     setFeedback([newFeedback, ...feedback]);
+  };
+
+  // * DELETE
+  const deleteFeedback = (id: number) => {
+    // * DELETE Fetch
+    // await fetch(`http://localhost:3000/api/feedback/${id}`, {
+    //   method: "DELETE",
+    // });
+
+    setFeedback(feedback.filter((item) => item.id !== id));
   };
 
   // * EDIT
@@ -44,6 +74,14 @@ export const FeedbackProvider = ({ children }: any) => {
 
   // * UPDATE
   const updateFeedback = (id: number, updItem: any) => {
+    // * UPDATE Fetch
+    // const res = await fetch(`http://localhost:3000/api/feedback/${id}`, {
+    //   method: "PUT",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(updItem),
+    // });
     setFeedback(feedback.map((item) => (item.id === id ? updItem : item)));
     setFeedbackEdit({
       item: {},
@@ -55,11 +93,12 @@ export const FeedbackProvider = ({ children }: any) => {
     <FeedbackContext.Provider
       value={{
         feedback,
+        feedbackEdit,
+        isLoading,
         deleteFeedback,
         addFeedback,
         editFeedback,
         updateFeedback,
-        feedbackEdit,
       }}
     >
       {children}

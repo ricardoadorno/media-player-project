@@ -7,16 +7,27 @@ import FeedbackContext from "../context/FeedbackContext";
 
 function FeedbackList() {
   // * Take Context
-  const { feedback } = useContext(FeedbackContext);
+  const { feedback, isLoading } = useContext(FeedbackContext);
 
   console.log(feedback);
 
+  // ! Add animaions with framer motion
   if (!feedback || feedback.length === 0) {
     return <div>No feedback</div>;
   } else {
-    return (
-      // ! Add animaions with framer motion
-
+    return isLoading ? (
+      <div
+        className="spinner-container"
+        style={{
+          fontSize: "64px",
+          display: "flex",
+          justifyContent: "center",
+          marginTop: "1rem",
+        }}
+      >
+        <i className="fas fa-spinner fa-spin"></i>
+      </div>
+    ) : (
       <div>
         {feedback.map((item: any) => {
           return <FeedbackItem item={item} key={item.id} />;
