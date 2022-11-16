@@ -1,30 +1,12 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useContext } from "react";
 import UserItem from "./UserItem";
 import UserSearch from "./UserSearch";
-
-// ! Tirar o any
+import GithubContext from "../context/github/GithubContext";
+import { GithubContextType } from "../context/github/GithubContext";
 
 function UserResults() {
-  const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    // fetch users
-    fetchUsers();
-  }, []);
-
-  const fetchUsers = async () => {
-    const res = await fetch(`${import.meta.env.VITE_GITHUB_URL}/users`, {
-      headers: {
-        Authorization: `token ${import.meta.env.VITE_GITHUB_API_TOKEN}`,
-      },
-    });
-
-    const data = await res.json();
-    setUsers(data);
-    setLoading(false);
-  };
+  const { users, loading } = useContext(GithubContext) as GithubContextType;
 
   if (!loading) {
     return (
