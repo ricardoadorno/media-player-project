@@ -1,13 +1,17 @@
 import { createContext, useReducer } from "react";
 import GithubReducer from "./GithubReducer";
 
-// ! Tirar o any
+// TODO Tirar o any
 
 export type GithubContextType = {
   users: any[];
+  user: {
+    login: string;
+  };
   loading: boolean;
   searchUsers: (text: string) => void;
   clearUsers: () => void;
+  getUser: (username: string) => void;
 };
 
 const GithubContext = createContext<GithubContextType | null>(null);
@@ -50,13 +54,33 @@ export const GithubProvider = ({ children }: any) => {
   // * Clear users
   const clearUsers = () => dispatch({ type: "CLEAR_USERS" });
 
+  // * Get single user
+  const getUser = async (login: string) => {
+    setLoading();
+
+    const res = await fetch(`${GITHUB_URL}/users/${login}`, {
+      headers: {
+        Authorization: `token ${GITHUB_TOKEN}`,
+      },
+    });
+
+    const data = await res.json();
+
+    dispatch({
+      type: "GET_USER",
+      payload: data,
+    });
+  };
+
   return (
     <GithubContext.Provider
       value={{
         users: state.users,
         loading: state.loading,
+        user: state.user,
         searchUsers,
         clearUsers,
+        getUser,
       }}
     >
       {children}

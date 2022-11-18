@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function UserItem({ user }: any) {
   return (
@@ -13,12 +14,12 @@ function UserItem({ user }: any) {
         </div>
         <div>
           <h2 className="card-tile">{user.login}</h2>
-          <a
+          <Link
             className="text-base-content text-opacity-40"
-            href={`/user/${user.login}`}
+            to={`/user/${user.login}`}
           >
             Visit Profile
-          </a>
+          </Link>
         </div>
       </div>
     </div>
