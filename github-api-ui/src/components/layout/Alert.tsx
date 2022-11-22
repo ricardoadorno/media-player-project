@@ -7,7 +7,7 @@ function Alert() {
 
   if (alert !== null) {
     return (
-      <div className={`alert alert-${alert.type}`}>
+      <div className={`alert alert-${alert.type} max-w-md`}>
         <i className="fas fa-info-circle" /> {alert.msg}
       </div>
     );

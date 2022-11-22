@@ -2,9 +2,9 @@ import React from "react";
 
 function Navbar() {
   return (
-    <nav className="navbar mb-12 shadow-lg bg-neutral text-neutral-content">
-      <h1>
-        <i className="fab fa-github" /> Github Finder
+    <nav className="navbar mb-12 shadow-lg bg-neutral text-neutral-content flex justify-center align-middle">
+      <h1 className="text-lg">
+        <i className="fab fa-github pr-2" /> Github Finder
       </h1>
     </nav>
   );

@@ -8,10 +8,12 @@ export type GithubContextType = {
   user: {
     login: string;
   };
+  repos: any[];
   loading: boolean;
   searchUsers: (text: string) => void;
   clearUsers: () => void;
   getUser: (username: string) => void;
+  getUserRepos: (username: string) => void;
 };
 
 const GithubContext = createContext<GithubContextType | null>(null);
@@ -22,6 +24,8 @@ const GITHUB_TOKEN = import.meta.env.VITE_GITHUB_API_TOKEN;
 export const GithubProvider = ({ children }: any) => {
   const initialState = {
     users: [],
+    user: {},
+    repos: [],
     loading: false,
   };
 
@@ -72,15 +76,33 @@ export const GithubProvider = ({ children }: any) => {
     });
   };
 
+  // * Get user repos
+  const getUserRepos = async (login: string) => {
+    const res = await fetch(`${GITHUB_URL}/users/${login}/repos`, {
+      headers: {
+        Authorization: `token ${GITHUB_TOKEN}`,
+      },
+    });
+
+    const data = await res.json();
+
+    dispatch({
+      type: "GET_REPOS",
+      payload: data,
+    });
+  };
+
   return (
     <GithubContext.Provider
       value={{
         users: state.users,
         loading: state.loading,
         user: state.user,
+        repos: state.repos,
         searchUsers,
         clearUsers,
         getUser,
+        getUserRepos,
       }}
     >
       {children}
