@@ -1,7 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function RegisterForm() {
+  const navigate = useNavigate();
+
   // State to hold the values of the form fields
   const [formValues, setFormValues] = React.useState({
     username: "",
@@ -10,11 +12,20 @@ export default function RegisterForm() {
     phone: "",
   });
 
-  // Event handler for when the form is submitted
+  // Function to handle form submission
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    // Prevent the default form submission behavior
     event.preventDefault();
-    // Process the form values (e.g. validate and send to server)
-    console.log(formValues);
+
+    // Post the new user to the server using fetch
+    fetch("http://localhost:3000/api/user", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formValues),
+    });
+
+    // Redirect to the login page
+    navigate("/");
   };
 
   // Event handler for when a form field is changed

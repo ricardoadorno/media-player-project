@@ -8,11 +8,32 @@ export default function LoginForm() {
     password: "",
   });
 
+  const [userResponse, setUserResponse] = React.useState([
+    {
+      username: "",
+      password: "",
+    },
+  ]);
+
   // Event handler for when the form is submitted
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // Process the form values (e.g. validate and send to server)
-    console.log(formValues);
+
+    // Find user in the server using fetch and set the userResponse state
+    fetch("http://localhost:3000/api/user")
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setUserResponse(data);
+        // Check if the user exists
+        if (data.find((user: any) => user.username === formValues.username)) {
+          //alert popup window
+          alert("User exists");
+        } else {
+          //alert popup window
+          alert("User does not exist");
+        }
+      });
   };
 
   // Event handler for when a form field is changed
