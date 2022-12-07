@@ -1,7 +1,8 @@
 import LoginForm from "./components/LoginForm";
 
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import RegisterForm from "./components/RegisterForm";
+
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
