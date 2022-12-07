@@ -18,7 +18,7 @@ export default function RegisterForm() {
     event.preventDefault();
 
     // Post the new user to the server using fetch
-    fetch("http://localhost:3000/api/user", {
+    fetch("http://localhost:3000/api/users", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formValues),

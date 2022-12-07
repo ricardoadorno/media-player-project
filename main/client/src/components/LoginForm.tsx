@@ -20,7 +20,7 @@ export default function LoginForm() {
     event.preventDefault();
 
     // Find user in the server using fetch and set the userResponse state
-    fetch("http://localhost:3000/api/user")
+    fetch("http://localhost:3000/api/users")
       .then((response) => response.json())
       .then((data) => {
         console.log(data);

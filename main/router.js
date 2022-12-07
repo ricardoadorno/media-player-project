@@ -1,10 +1,11 @@
-const express = require("express");
-const router = express.Router();
+import { Router } from "express";
+
+const router = Router();
 
 let users = [];
 
 // Create a new User
-router.post("/api/user", (req, res) => {
+router.post("/api/users", (req, res) => {
   // Create a new user using the data in the request body
   const user = { id: Date.now(), ...req.body };
 
@@ -16,7 +17,7 @@ router.post("/api/user", (req, res) => {
 });
 
 // Read all users
-router.get("/api/user", (req, res) => {
+router.get("/api/users", (req, res) => {
   // Return all users
   if (users.length) {
     res.json(users);
@@ -26,7 +27,7 @@ router.get("/api/user", (req, res) => {
 });
 
 // Read a single user
-router.get("/api/user/:id", (req, res) => {
+router.get("/api/users/:id", (req, res) => {
   // Find the user with the specified ID
   const user = users.find((r) => r.id === parseInt(req.params.id));
 
@@ -41,7 +42,7 @@ router.get("/api/user/:id", (req, res) => {
 });
 
 // Update a user
-router.put("/api/user/:id", (req, res) => {
+router.put("/api/users/:id", (req, res) => {
   // Find the user with the specified ID
   const index = users.findIndex((r) => r.id === parseInt(req.params.id));
 
@@ -60,7 +61,7 @@ router.put("/api/user/:id", (req, res) => {
 });
 
 // Delete a user
-router.delete("/api/user/:id", (req, res) => {
+router.delete("/api/users/:id", (req, res) => {
   // Find the user with the specified ID
   const index = users.findIndex((r) => r.id === parseInt(req.params.id));
 
@@ -77,4 +78,4 @@ router.delete("/api/user/:id", (req, res) => {
   res.status(204).end();
 });
 
-module.exports = router;
+export default router;
