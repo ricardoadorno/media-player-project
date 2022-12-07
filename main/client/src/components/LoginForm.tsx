@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function LoginForm() {
   // State to hold the values of the form fields
@@ -62,9 +63,12 @@ export default function LoginForm() {
           <div className="flex items-center justify-between p-4 gap-3">
             <p className="text-center text-gray-500 text-xs">
               Don't have an account?{" "}
-              <a href="#" className="text-blue-500 hover:text-blue-800">
+              <Link
+                to={"/register"}
+                className="text-blue-500 hover:text-blue-800"
+              >
                 Sign Up
-              </a>
+              </Link>
             </p>
 
             <a
